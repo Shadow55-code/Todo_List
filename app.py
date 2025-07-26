@@ -57,7 +57,10 @@ def search():
         allTodo = []
     return render_template('index.html', allTodo=allTodo, search_query=query)
 
+import os
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=8000)
+    port = int(os.environ.get("PORT", 5000))  # Render provides PORT
+    app.run(host="0.0.0.0", port=port, debug=True)
