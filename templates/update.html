@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Update{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Update Task</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <input type="text" class="form-control" name="title" value="{{ todo.title }}" required>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" name="desc" rows="2" required>{{ todo.desc }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Update</button>
+    </form>
+    <a href="/" class="btn btn-secondary mt-3 w-100">Back to Home</a>
+</div>
+{% endblock body %}

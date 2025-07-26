@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<div class="container my-3">
+    <h2>Add a Todo</h2>
+    <form action="/" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Todo Title</label>
+          <input type="text" class="form-control" name="title" id="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label">Todo Description</label>
+          <input type="text" class="form-control" name="desc" id="desc" required>
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+</div>
+
+<div class="container my-3">
+    <h2>Your Todos</h2>
+    {% if allTodo|length == 0 %}
+        <div class="alert alert-dark mt-3" role="alert">
+            {% if search_query %}
+                No results found for "{{ search_query }}".
+            {% else %}
+                No Todos found. Add your first todo now!
+            {% endif %}
+        </div>
+    {% else %}
+    <table class="table table-hover table-bordered mt-3">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in allTodo %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.desc }}</td>
+            <td>{{ todo.date_created.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              <a href="/update/{{ todo.sno }}" class="btn btn-sm btn-warning">Update</a>
+              <a href="/delete/{{ todo.sno }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock body %}
